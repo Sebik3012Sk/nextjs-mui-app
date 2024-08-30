@@ -22,7 +22,7 @@ const NavBar = () => {
         <Typography variant="h4" sx={
           {
             float : "right",
-            margin : "5px"
+            margin : "10px"
           }
         }>MUI App</Typography> 
       </Link>
@@ -36,13 +36,14 @@ const NavBar = () => {
         height : "150px",
         bgcolor : "#161616",
         position : "absolute",
-        zIndex : "1000"
+        zIndex : "1000",
+        boxShadow : "5px 5px 5px #161616"
       }}>
 
       <nav style={{margin : "5px"}}>
         <ul>
           <li>
-            <Link href={"/"}>
+            <Link href={"/"} prefetch={true}>
               <Button sx={
                 {
                   width : "210px",
@@ -58,7 +59,7 @@ const NavBar = () => {
           </li>
 
           <li>
-            <Link href={"/about-us"}>
+            <Link href={"/about-us"} prefetch={true}>
               <Button sx={
                 {
                   width : "210px",
@@ -74,7 +75,7 @@ const NavBar = () => {
           </li>
 
           <li>
-            <Link href={"/users/all-users"}>
+            <Link href={"/users/all-users"} prefetch={true}>
               <Button sx={
                 {
                   width : "210px",

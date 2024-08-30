@@ -30,11 +30,15 @@ const Home = () => {
           marginTop : "-100px",
           padding : "10px",
           borderRadius : "10px",
+          boxShadow : "10px 10px 10px #190733",
+          
 
           ":hover" : {
-            bgcolor : "#110a36",
+            bgcolor : "#190733",
+            boxShadow : "10px 10px 10px 10px #060e38",
             transform : "scale(1.25)",
-            transition : "1s"
+            transition : "1s",
+            cursor : "pointer"
           }
         }
       }>MUI App</Typography>
