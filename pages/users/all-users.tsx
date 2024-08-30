@@ -1,16 +1,26 @@
 import { Box, Button, Typography } from "@mui/material";
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from "next/link";
+import { useState } from "react";
 
 // import NavBar
 import NavBar from "@/components/NavBar";
 
-// import users
-import users from "@/data/data_user";
 import User from "@/interface/User";
 
 const Users = () => {
   
+  const [dataUsersState,setDataUsersState] = useState([]);
+
+  const getDataUsers = async () => {
+    const response = await fetch("/api/users");
+    const data_json = await response.json();
+    setDataUsersState(data_json[0])
+  }
+
+  useEffect(() => {
+    getDataUsers();
+  } , [])
 
   return (
     <Box sx={{
@@ -41,7 +51,7 @@ const Users = () => {
       </Box>
      
      {
-      users.map((user : User,key) => {
+      dataUsersState.map((user : User,key : number) => {
         return <div style={
           {
             display : "flex",

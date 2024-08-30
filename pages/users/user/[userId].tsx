@@ -1,73 +1,52 @@
 import { useState , useEffect } from "react";
 import { useRouter } from "next/router";
-import { Box, Typography } from "@mui/material";
-
-// import data
-import users from "@/data/data_user";
-
-// import interfaces
 import User from "@/interface/User";
-import NavBar from "@/components/NavBar";
+import { Box, Typography } from "@mui/material";
 
 const UserIdPage = () => {
 
+    const [dataStateUser,setDataStateUser] = useState<User[] | undefined>();
     const [foundUser,setFoundUser] = useState<User>();
     const router = useRouter();
     const { userId } = router.query;
 
+    const getDataUsers = async () => {
+        const response = await fetch("/api/users");
+        const data_json = await response.json();
+        setDataStateUser(data_json[0]);
+    } 
+
     useEffect(() => {
-        const find_user = users.find((user) => user.id == Number(userId));
-        setFoundUser(find_user);
-    } , [userId])
+        const found_user = dataStateUser?.find((user) => user.id == Number(userId));
+        setFoundUser(found_user);
+    } , [dataStateUser,userId])
 
-    return <Box sx={{
-        display : "flex",
-        flexDirection : "column",
-        justifyContent : "center",
-        alignItems : "center",
-    }}>
-    
-    <NavBar />
+    useEffect(() => {
+        getDataUsers();
+    } , [])
 
-    <Box sx={
+    return <Box sx={
         {
             display : "flex",
+            flexDirection : "column",
+            flexWrap : "wrap",
             justifyContent : "center",
             alignItems : "center",
-            flexDirection : "column",
-            width : "450px",
-            height : "250px",
-            margin : "10px",
-            bgcolor : "#141414",
-            borderRadius : "10px"
+            backgroundColor : "#19223a",
+            width : "90%",
+            height : "100vh"
         }
     }>
-        <Typography variant="h3" sx={
+        <Box sx={
             {
-                color : "#fff"
+                margin : "10px",
             }
-        }>{foundUser?.user}</Typography>
-
-        <Typography variant="h4" sx={
-            {
-                color : "#fff"
-            }
-        }>Age :{foundUser?.age}</Typography>
-
-        <Typography variant="h4" sx={
-            {
-                color : "#fff"
-            }
-        }>{foundUser?.job}</Typography>
-
-        <Typography variant="h4" sx={
-            {
-                color : "#fff"
-            }
-        }>Id :{foundUser?.id}</Typography>
-    </Box>
-
-
+        }>
+            <Typography variant="h2">{foundUser?.user}</Typography>
+            <Typography variant="h4">{foundUser?.age}</Typography>
+            <Typography variant="h4">{foundUser?.job}</Typography>
+            {/* <Typography variant="h4">{foundUser?.id}</Typography> */}
+        </Box>
     </Box>
 }
 
